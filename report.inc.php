@@ -15,8 +15,68 @@ function __construct( $request = null ) {
 
   // Navigate based on request
   switch ( $request ) {
-    case 'value':
-      // code...
+    case 'totaal_datum':
+
+      echo "<h1>Fonky Sales Totaal Verkoop</h1>";
+      echo "<h2>op basis van datum</h2>";
+
+      echo "<script>";
+
+      $result = $db->select( "fonky_sales_data", array( "count(*) AS tellen", "DATE(datum) as datum" ), "GROUP BY CAST(datum as DATE)" );
+
+      echo "var config = { \n";
+      echo "  type: 'line',\n";
+      echo "  data: {\n";
+      echo "    labels: " . json_encode( array_values ( array_unique( array_column( $result[1], "datum" ) ) ) ) . ",\n" ;
+      echo "    datasets: [{\n";
+      echo "      label: 'Totaal Verkoop per Dag',\n";
+      echo "      backgroundColor: window.chartColors.red, \n";
+      echo "      borderColor: window.chartColors.red,\n";
+      echo "      data: ";
+      echo json_encode( array_values ( array_column( $result[1], "tellen" ) ) ) . ",\n";
+      echo "    fill: false,\n";
+      echo "    }]\n";
+      echo "  },\n";
+      echo "
+      options: {
+        responsive: true,
+        title: {
+          display: true,
+          text: 'Fonky Sales - Totaal Verkoop per Datum'
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false,
+        },
+        hover: {
+          mode: 'nearest',
+          intersect: true
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Datum'
+            }
+          }],
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Totaal Verkoop'
+            }
+          }]
+        }
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('canvas').getContext('2d');
+      window.myLine = new Chart(ctx, config);
+    };";
+      echo "</script>";
+
       break;
 
     // General report on number of sales based on city

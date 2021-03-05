@@ -32,7 +32,7 @@ $report = new FonkyReport( ( ( isset( $_REQUEST['report'] ) ) ? $_REQUEST['repor
 <div style="margin: auto; text-align: center;">
   <p><b>Rapoorten</b></p>
   <a class="button" href="?report=overzicht">Overzicht</a> &nbsp;
-  <a class="button" href="?report=totaal">Totaal Sales</a> &nbsp;
+  <a class="button" href="?report=totaal_datum">Totaal Sales / Datum</a> &nbsp;
 </div>
 
 </body>
