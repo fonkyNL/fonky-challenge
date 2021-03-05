@@ -5,6 +5,7 @@
   <title>Fonky Sales Raport</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js" integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA==" crossorigin="anonymous"></script>
   <script src="utils.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -26,6 +27,12 @@ $report = new FonkyReport( ( ( isset( $_REQUEST['report'] ) ) ? $_REQUEST['repor
 
 <div style="width:75%; margin: auto;">
 	<canvas id="canvas"></canvas>
+</div>
+
+<div style="margin: auto; text-align: center;">
+  <p><b>Rapoorten</b></p>
+  <a class="button" href="?report=overzicht">Overzicht</a> &nbsp;
+  <a class="button" href="?report=totaal">Totaal Sales</a> &nbsp;
 </div>
 
 </body>

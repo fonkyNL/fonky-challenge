@@ -22,7 +22,7 @@ function __construct( $request = null ) {
     // General report on number of sales based on city
     default:
 
-      echo "<h1>Verkooprapport</h1>";
+      echo "<h1>Fonky Sales Verkooprapport</h1>";
       echo "<h2>op basis van vestiging en datum</h2>";
 
       echo "<script>";
