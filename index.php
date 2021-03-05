@@ -25,15 +25,12 @@ $report = new FonkyReport( ( ( isset( $_REQUEST['report'] ) ) ? $_REQUEST['repor
 
 ?>
 
-<div style="width:75%; margin: auto;">
-	<canvas id="canvas"></canvas>
-</div>
-
 <div style="margin: auto; text-align: center;">
   <p><b>Rapoorten</b></p>
   <a class="button" href="?report=overzicht">Overzicht</a> &nbsp;
   <a class="button" href="?report=totaal_datum">Totaal Sales / Datum</a> &nbsp;
   <a class="button" href="?report=totaal_vestiging">Totaal Sales / Vestiging</a> &nbsp;
+  <a class="button" href="?report=verkoper">Totaal Sales / Verkoper</a> &nbsp;
 </div>
 
 </body>

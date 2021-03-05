@@ -11,9 +11,26 @@ h1, h2, h3 {
   color: rgb(75, 192, 192);
   background: none;
   text-decoration: none;
+  line-height: 3em;
 }
 .button:hover {
   border: solid 1px rgb(255, 159, 64);
   color: #000000;
   background: rgb(255, 159, 64);
+}
+
+table {
+  border-collapse: collapse;
+  width: 70%;
+  margin: auto;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #eeeeee;
 }

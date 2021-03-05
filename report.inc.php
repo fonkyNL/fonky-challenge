@@ -20,6 +20,10 @@ function __construct( $request = null ) {
       echo "<h1>Fonky Sales Totaal Verkoop</h1>";
       echo "<h2>op basis van datum</h2>";
 
+      echo '<div style="width:75%; margin: auto;">
+      	<canvas id="canvas"></canvas>
+      </div>';
+
       echo "<script>";
 
       $result = $db->select( "fonky_sales_data", array( "count(*) AS tellen", "DATE(datum) as datum" ), "GROUP BY CAST(datum as DATE)" );
@@ -84,6 +88,10 @@ function __construct( $request = null ) {
       echo "<h1>Fonky Sales Totaal Verkoop</h1>";
       echo "<h2>op basis van vestiging</h2>";
 
+      echo '<div style="width:75%; margin: auto;">
+      	<canvas id="canvas"></canvas>
+      </div>';
+
       echo "<script>";
 
       $result = $db->select( "fonky_sales_data", array( "count(*) AS tellen", "vestiging" ), "GROUP BY vestiging" );
@@ -112,11 +120,36 @@ function __construct( $request = null ) {
 
       break;
 
+
+    case 'verkoper':
+
+      echo "<h1>Fonky Sales Totaal Verkoop</h1>";
+      echo "<h2>op basis van verkoper</h2>";
+
+      $result = $db->select( "fonky_sales_data", array( "count(*) AS tellen", "verkoper" ), "GROUP BY verkoper ORDER BY tellen DESC" );
+
+      echo "<table><tr>\n";
+      echo "<th>Verkoper</th>\n";
+      echo "<th>Totaal Verkoop</th>\n";
+      echo "</tr>\n";
+
+      //loop in the results
+      foreach ($result[1] as $row) {
+        echo "<tr><td>". $row["verkoper"] ."</td><td>". $row["tellen"] ."</td></tr>\n";
+      }
+      echo "</table>\n";
+
+      break;
+
     // General report on number of sales based on city
     default:
 
       echo "<h1>Fonky Sales Verkooprapport</h1>";
       echo "<h2>op basis van vestiging en datum</h2>";
+
+      echo '<div style="width:75%; margin: auto;">
+      	<canvas id="canvas"></canvas>
+      </div>';
 
       echo "<script>";
 
