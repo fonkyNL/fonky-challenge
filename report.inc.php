@@ -11,7 +11,7 @@ class FonkyReport {
 function __construct( $request = null ) {
 
   $db = new FonkyDB;
-  $colors = array( "red", "orange", "yellow", "green", "blue", "purple", "grey" );
+  $colors = array( "window.chartColors.red", "window.chartColors.orange", "window.chartColors.yellow", "window.chartColors.green", "window.chartColors.blue", "window.chartColors.purple", "window.chartColors.grey" );
 
   // Navigate based on request
   switch ( $request ) {
@@ -79,6 +79,39 @@ function __construct( $request = null ) {
 
       break;
 
+    case 'totaal_vestiging':
+
+      echo "<h1>Fonky Sales Totaal Verkoop</h1>";
+      echo "<h2>op basis van vestiging</h2>";
+
+      echo "<script>";
+
+      $result = $db->select( "fonky_sales_data", array( "count(*) AS tellen", "vestiging" ), "GROUP BY vestiging" );
+
+      echo "var config = { \n";
+      echo "  type: 'pie',\n";
+      echo "  data: {\n";
+      echo "    datasets: [{\n";
+      echo "      data: ". json_encode( array_values ( array_column( $result[1], "tellen" ) ) ) . ",\n";
+      echo "      backgroundColor: ". str_replace( "\"", "", json_encode( $colors ) ) .",\n";
+      echo "      label: 'Dataset 1'\n";
+      echo "    }],\n";
+      echo "    labels: " . json_encode( array_values ( array_unique( array_column( $result[1], "vestiging" ) ) ) ) . "\n" ;
+      echo "  },\n";
+      echo "
+      options: {
+				responsive: true
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myPie = new Chart(ctx, config);
+		};";
+      echo "</script>";
+
+      break;
+
     // General report on number of sales based on city
     default:
 
@@ -103,7 +136,7 @@ function __construct( $request = null ) {
       foreach ($cities as $city) {
         echo "{ \n";
         echo "      label: '$city', \n";
-        echo "      backgroundColor: window.chartColors.". $colors[ $i ] .", \n";
+        echo "      backgroundColor: ". $colors[ $i ] .", \n";
         echo "      data: [";
 
         $dumpdata = array();
