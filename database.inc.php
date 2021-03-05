@@ -48,7 +48,6 @@ class FonkyDB {
   function insert( $table, $fields, $values ) {
 
     $query = "INSERT INTO $table ( ". implode( ", ", $fields ) ." ) VALUES ( ". implode( ",", $values) ." );";
-    echo $query . "<br>";
     $result = $this->conn->query( $query );
     echo $this->conn->error;
     return $result;

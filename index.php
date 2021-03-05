@@ -9,9 +9,15 @@
 
 <?php
 
+// Include required classes and functionalities
+require("database.inc.php");
 require("class.inc.php");
 
-transform_csv();
+// Run the CSV file initiation
+$data = new csvs( "orders.csv" );
+
+
+
 
 ?>
 

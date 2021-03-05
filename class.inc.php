@@ -2,10 +2,17 @@
 <?php
 
 /**
- * Transforms CSV file into array
+ * A Class to work with the CSV file
+ */
+class csvs {
+
+public $csvfile = "orders.csv";
+
+/**
+ * Transforms CSV file and insert data into database
  * @return array of data
  */
-function transform_csv() {
+function __construct( $csvfile ) {
   // Get the database
   $db = new FonkyDB();
 
@@ -14,12 +21,13 @@ function transform_csv() {
   if( $result[0] < 1 ) {
 
     // Open the csv file
-    if (($handle = fopen( "orders.csv" , "r" )) !== FALSE) {
+    $this->csvfile = $csvfile;
+    if (($handle = fopen( $this->csvfile , "r" )) !== FALSE) {
       //read first row (titles)
-      $titles = read_row( $handle );
+      $titles = $this->read_row( $handle );
 
       //read the csv file
-      while ( ( $data = read_row( $handle ) ) !== FALSE) {
+      while ( ( $data = $this->read_row( $handle ) ) !== FALSE) {
         //assign keys
         // This is not needed any more. Just keeping for in case
         $row[] = array_combine( $titles, $data );
@@ -63,4 +71,5 @@ function read_row( $handle ) {
   return $line;
 }
 
+}
 ?>
