@@ -4,7 +4,7 @@
 /**
  * A Class to work with the CSV file
  */
-class csvs {
+class CSVs {
 
 public $csvfile = "orders.csv";
 

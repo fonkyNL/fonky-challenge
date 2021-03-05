@@ -14,7 +14,7 @@ require("database.inc.php");
 require("csv.inc.php");
 
 // Run the CSV file initiation
-$data = new csvs( "orders.csv" );
+$data = new CSVs( "orders.csv" );
 
 
 
