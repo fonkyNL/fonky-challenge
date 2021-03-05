@@ -12,6 +12,7 @@
 // Include required classes and functionalities
 require("database.inc.php");
 require("csv.inc.php");
+require("report.inc.php");
 
 // Run the CSV file initiation
 $data = new CSVs( "orders.csv" );
