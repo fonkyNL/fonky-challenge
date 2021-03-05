@@ -18,3 +18,22 @@ De minimale requirement in de opdracht is "wat zijn de resultaten van deze klant
 ## Voorwaarden
 
 **MySQL**: Een MySQL server en client is nodig voor deze programma. in file `database.inc.php` kan jij de credentials toevoegen.
+
+**Chart.js**: De programma gebruik maken van de [Chart.js](https://chartjs.org) Javascrip library.
+
+## Hoe Te Gebruiken
+
+Download de hele package en plaats alles in een folder in je host en gewoon navigate naar die folder in je browser.
+
+De programma probeer om alle data importeren in de eerste gebruik.
+
+### Besteden
+**index.php** is de hooft bestand. Dit bestand laadt de rapporten en libraries.
+
+**csv.inc.php** is de class en functies gerelateerd aan CSV bestanden.
+
+**database.inc.php** is de class en functies voor Database.
+
+**raport.inc.php** laadt de verschileden rapporten. Dit is de bestand dat je kan bewerken om meerdere rapporten toevoegen.
+
+**Rest van de bestanden**: `orders.csv` is de rauwe data in CSV formaat. `style.css` is stylesheet van de programma. `utils.js` is een paar variables en configs voor Chart.js lib.
