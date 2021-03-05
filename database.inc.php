@@ -58,14 +58,21 @@ class FonkyDB {
    * selects data from db
    * @param string table name
    * @param array $fileds that data hould be insert into
-   * @param array $options that should be inserted
+   * @param string $options that should be encountered
    */
   function select( $table, $fields = array("*"), $options = "" ) {
 
     $query = "SELECT ". implode( ", ", $fields ) ." FROM $table $options;";
+    //echo $query;
     $result = $this->conn->query( $query );
 
-    return array( $result->num_rows , $result->fetch_array() );
+    $results = array();
+    // loop trhough results make them ready for output
+    while($row = $result->fetch_assoc()) {
+      $results[] = $row;
+    }
+
+    return array( count($results) , $results );
 
   }
 
