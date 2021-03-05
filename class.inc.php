@@ -6,7 +6,7 @@
  * @return array of data
  */
 function transform_csv() {
-  $row = 1;
+
   // Open the csv file
   if (($handle = fopen( "orders.csv" , "r" )) !== FALSE) {
       //read first row (titles)
@@ -15,15 +15,13 @@ function transform_csv() {
       //read the csv file
       while ( ( $data = read_row( $handle ) ) !== FALSE) {
         //assign keys
-        $data = array_combine( $titles, $data );
-
-        //work on the rows
-        print_r( $data );
-        echo "<br />\n";
+        $rows[] = array_combine( $titles, $data );
       }
 
     fclose($handle);
   }
+
+  return $rows;
 }
 
 /**
