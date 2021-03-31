@@ -5,10 +5,10 @@
  */
 class FonkyDB 
 {
-	private $hostname = 'localhost';
-	private $username = 'fonky_db';
-	private $password = 'UInzmQrq';
-	private $database = 'fonky_db';
+	private $hostname = '';
+	private $username = '';
+	private $password = '';
+	private $database = '';
 
 	private $connect;
 
