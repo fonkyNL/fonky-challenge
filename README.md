@@ -6,7 +6,7 @@ Hieronder worden de instructies beschreven hoe de fonky challenge opdracht werke
 
 
 
--- Installeer de bestanden van de fonky challenge in ergens met git clone.
+-- Installeer de bestanden van de fonky challenge met git clone.
 
 
 -- Zet onderstaande regels in een .sql-bestand met de naam create_database.sql:
@@ -29,5 +29,10 @@ php artisan db:seed --class=OrdersSeeder
 
 -- Start de web server van Laravel:
 php artisan serve
+
+
+-- Er komt nu een URL in beeld, dat kan zijn http://127.0.0.1:8000. Ga daar naartoe om de applicatie te bekijken.
+
+
 
 
