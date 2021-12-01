@@ -1,16 +1,18 @@
-# fonky-challenge
-Dit is de opdracht voor developers die bij Fonky Sales solliciteren
 
-Bij het interviewen van development posities, vinden we het belangrijk om code te zien en te bespreken. Daarom vragen we jou om aan een challenge te werken. Het is niet de bedoeling dat het je superveel tijd kost, een paar uur zou voldoende moeten zijn. De opdracht is breed geformuleerd; je zou er weken of dagen mee bezig kunnen zijn, natuurlijk is er maar zoveel dat je kunt doen in 2 uur. Maak je daar geen zorgen om, het gaat er niet om dat het af is, maar dat jij iets werkends laat zien waarbij je je skills etaleert. 
+# Bijgevoegd de afgeronde Fonky Assessment.
 
-**De opdracht**
+Hopelijk kunnen jullie op basis hiervan goed mijn niveau bepalen! Goed om gezegd te hebben is dat ik de assessment persoonlijk redelijk simpel vond, en het gevoel heb dat ik hiermee niet al mijn ervaring en kennis heb kunnen laten zien. Wel heb ik geprobeerd zoveel mogelijk ‘extra’ skills te laten zien voor zover dat mogelijk was.
+Onderstaand mijn uitleg:
+Om de app te runnen heb je een PHP environment nodig zoals: Xamppp.
+De applicatie laat vanuit een CSV-file de orders zien van de klanten van Fonky.
 
-In deze repository vind je een folder Data met daarin orders.csv. In dit bestand zitten de orders van Fonky van verschillende vestigingen van één klant.
-Maak een dashboard van de resultaten voor deze klant. Je mag hier zelf weten wat je presenteert. 
-Maak een pull request aan waarin je in ieder geval een readme hebt opgenomen die uitlegt wat je moet doen om het resultaat te kunnen bekijken.
+De gebruikte technologieën zijn:
 
-**Vrijheid**
+- Bootstrap 5
+- Datatable.js
+- jQuery en Ajax
+- PHP
 
-Deze opdracht is expres ruim geformuleerd. Je mag de technieken en tools gebruiken die je het liefst gebruikt. Je mag je tijd besteden aan de aspecten die je zelf het belangrijkst vindt. Er is geen tijd om alles te doen: maak een keuze. Bij Fonky werken we met PHP, JavaScript, HTML en CSS. Je mag frameworks en libraries gebruiken. Je mag de data in een ander formaat omzetten of importeren in databases. Dan wel in de readme uitleggen hoe een ander het werkend kan krijgen. 
- 
-De minimale requirement in de opdracht is "wat zijn de resultaten van deze klant voor Fonky". Dat kan in een lijstje, in een grafisch vorm, het kan als getallen of kleuren. Je kan het vergelijken met vorige week of een gemiddelde score. Probeer te bedenken wat voor Fonky het belangrijkst is. 
+1- Run index.php \
+2-Klik op ‘upload file’ en kies de juiste CSV-file \
+3-Enjoy!
