@@ -18,15 +18,15 @@ class Order extends Model
         'vestiging_id',
     ];
 
-    public function kopers(){
-        return $this->hasOne('App\Koper', 'foreign_key');
+    public function koper(){
+        return $this->belongsTo('App\Koper');
     }
 
-    public function products(){
-        return $this->hasOne('App\Product', 'foreign_key');
+    public function product(){
+        return $this->belongsTo('App\Product');
     }
 
-    public function verkopers(){
-        return $this->hasOne('App\Verkoper', 'foreign_key');
+    public function verkoper(){
+        return $this->belongsTo('App\Verkoper');
     }
 }

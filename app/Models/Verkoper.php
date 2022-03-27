@@ -9,4 +9,8 @@ class Verkoper extends Model
 {
     use HasFactory;
     protected $fillable = ['naam'];
+
+    public function orders(){
+        return $this->hasMany('App\Order');
+    }
 }

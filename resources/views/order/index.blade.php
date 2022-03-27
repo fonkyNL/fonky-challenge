@@ -47,9 +47,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                
+                    @foreach ($orders as $order)
+                        <tr>
+                            <td>{{ $order->order_nummer }}</td>
+                            <td>{{ $order->koper }}</td>
+                            <td>{{ $order->product }}</td>
+                            <td>{{ $order->vestiging }}</td>
+                            <td>{{ $order->verkoper }}</td>
+                            <td>{{ date('d-m-Y', strtotime($order->datum_tijd)) }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center">
+                {{ $orders->render() }}
+            </div>
        </div>
    </div>
 

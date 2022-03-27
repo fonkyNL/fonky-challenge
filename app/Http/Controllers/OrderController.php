@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Verkoper;
 use App\Models\Vestiging;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -18,9 +19,16 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
-        dd($orders);
-        return view('order.index');
+        $orders = DB::table('orders as o')
+                ->join('verkopers as vk', 'o.verkoper_id', '=', 'vk.id')
+                ->join('products as p', 'o.product_id', '=', 'p.id')
+                ->join('kopers as kp', 'o.verkoper_id', '=', 'kp.id')
+                ->join('vestigings as ves', 'o.verkoper_id', '=', 'ves.id')
+                ->select('o.id', 'o.order_nummer', 'o.datum_tijd', 
+                        'vk.naam as verkoper', 'kp.naam as koper',
+                        'p.naam as product', 'ves.naam as vestiging')
+                ->paginate(20);
+        return view('order.index', compact('orders'));
     }
 
     /**
