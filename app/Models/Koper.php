@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Koper extends Model
 {
     use HasFactory;
+    protected $fillable = ['naam'];
 }
