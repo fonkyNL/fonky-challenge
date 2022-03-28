@@ -23,8 +23,8 @@ class OrderController extends Controller
         $orders = DB::table('orders as o')
                 ->leftJoin('verkopers as vk', 'o.verkoper_id', '=', 'vk.id')
                 ->leftJoin('products as p', 'o.product_id', '=', 'p.id')
-                ->leftJoin('kopers as kp', 'o.verkoper_id', '=', 'kp.id')
-                ->leftJoin('vestigings as ves', 'o.verkoper_id', '=', 'ves.id')
+                ->leftJoin('kopers as kp', 'o.koper_id', '=', 'kp.id')
+                ->leftJoin('vestigings as ves', 'o.vestiging_id', '=', 'ves.id')
                 ->select('o.id', 'o.order_nummer', 'o.datum_tijd', 
                         'vk.naam as verkoper', 'kp.naam as koper',
                         'p.naam as product', 'ves.naam as vestiging')
@@ -53,22 +53,22 @@ class OrderController extends Controller
         $request->validate([
             'order_file' => 'required|mimes:csv|max:2048'
         ]);
-        // dd($request->file());
+        
         $file = $request->file('order_file');
         $filename = $file->getClientOriginalName();
 
-        $location = 'uploads'; //Created an "uploads" folder for that
+        $location = 'uploads';
         // Upload file
         $file->move($location, $filename);
         $filepath = public_path($location . "/" . $filename);
         // Reading file
         $file = fopen($filepath, "r");
-        $importData_arr = array(); // Read through the file and store the contents as an array
+        $importData_arr = array();
         $i = 0;
         //Read the contents of the uploaded file 
         while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE) {
             $num = count($filedata);
-            // Skip first row (Remove below comment if you want to skip the first row)
+            // Skip first row
             if ($i == 0) {
                 $i++;
                 continue;
@@ -82,11 +82,14 @@ class OrderController extends Controller
 
         $j = 0;
         foreach ($importData_arr as $importData) {
-            $ordernummer = trim($importData[0]); //Get user names
-            $import_koper = trim($importData[1]); //Get the user emails
-            $datum_tijd = date('Y-m-d H:i:s', strtotime($importData[2])); //Get the user emails
-            $import_product = trim($importData[3]); //Get the user emails
-            $vestiging_verkoper = $importData[4]; //Get the user emails
+            $ordernummer = trim($importData[0]); 
+            $import_koper = trim($importData[1]); 
+            $import_product = trim($importData[3]);
+            $vestiging_verkoper = $importData[4];
+            
+            $datum = explode('/', $importData[2]);
+            $newDatum = $datum[0].'-'.$datum[1].'-'.$datum[2];
+            $datum_tijd = date('Y-m-d H:i:s', strtotime($newDatum));
             
             $vestiging_verkoper = explode('/', $vestiging_verkoper);
             $import_vestiging = trim($vestiging_verkoper[0]);
@@ -122,8 +125,8 @@ class OrderController extends Controller
         $orders = DB::table('orders as o')
                 ->leftJoin('verkopers as vk', 'o.verkoper_id', '=', 'vk.id')
                 ->leftJoin('products as p', 'o.product_id', '=', 'p.id')
-                ->leftJoin('kopers as kp', 'o.verkoper_id', '=', 'kp.id')
-                ->leftJoin('vestigings as ves', 'o.verkoper_id', '=', 'ves.id')
+                ->leftJoin('kopers as kp', 'o.koper_id', '=', 'kp.id')
+                ->leftJoin('vestigings as ves', 'o.vestiging_id', '=', 'ves.id')
                 ->select('o.id', 'o.order_nummer', 'o.datum_tijd', 
                         'vk.naam as verkoper', 'kp.naam as koper',
                         'p.naam as product', 'ves.naam as vestiging')
