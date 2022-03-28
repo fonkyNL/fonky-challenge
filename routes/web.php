@@ -17,5 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/orders/download', [OrderController::class, 'download']);
 Route::resource('orders', OrderController::class);

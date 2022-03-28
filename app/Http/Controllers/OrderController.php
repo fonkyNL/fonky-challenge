@@ -9,6 +9,7 @@ use App\Models\Verkoper;
 use App\Models\Vestiging;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class OrderController extends Controller
 {
@@ -20,14 +21,14 @@ class OrderController extends Controller
     public function index()
     {
         $orders = DB::table('orders as o')
-                ->join('verkopers as vk', 'o.verkoper_id', '=', 'vk.id')
-                ->join('products as p', 'o.product_id', '=', 'p.id')
-                ->join('kopers as kp', 'o.verkoper_id', '=', 'kp.id')
-                ->join('vestigings as ves', 'o.verkoper_id', '=', 'ves.id')
+                ->leftJoin('verkopers as vk', 'o.verkoper_id', '=', 'vk.id')
+                ->leftJoin('products as p', 'o.product_id', '=', 'p.id')
+                ->leftJoin('kopers as kp', 'o.verkoper_id', '=', 'kp.id')
+                ->leftJoin('vestigings as ves', 'o.verkoper_id', '=', 'ves.id')
                 ->select('o.id', 'o.order_nummer', 'o.datum_tijd', 
                         'vk.naam as verkoper', 'kp.naam as koper',
                         'p.naam as product', 'ves.naam as vestiging')
-                ->paginate(20);
+                ->simplePaginate(20);
         return view('order.index', compact('orders'));
     }
 
@@ -79,8 +80,6 @@ class OrderController extends Controller
         }
         fclose($file); //Close after reading
 
-        // dd($importData_arr);
-
         $j = 0;
         foreach ($importData_arr as $importData) {
             $ordernummer = trim($importData[0]); //Get user names
@@ -93,23 +92,8 @@ class OrderController extends Controller
             $import_vestiging = trim($vestiging_verkoper[0]);
             $import_verkoper = trim($vestiging_verkoper[1]);
 
-            // var_dump($ordernummer);
-            // var_dump($import_koper);
-            // var_dump($datum_tijd);
-            // var_dump($import_product);
-            // var_dump($import_verkoper);
-            // var_dump($import_vestiging);
-
-            // exit;
-
             $koper = Koper::firstOrCreate(['naam' => $import_koper]);
             $koper_id = $koper->id;
-            // if($koper = Koper::whereRaw('naam = ?', [$import_koper])->first()){
-            //     $koper_id = $koper->id;
-            // } else {
-            //     $koper = Koper::create(['naam' => $import_koper]);
-            //     $koper_id = $koper->id;
-            // }
             $product = Product::firstOrCreate(['naam' => $import_product]);
             $product_id = $product->id;
             $verkoper = Verkoper::firstOrCreate(['naam' => $import_verkoper]);
@@ -132,6 +116,55 @@ class OrderController extends Controller
         return back()
         ->with('success','File has been uploaded.');
         
+    }
+
+    public function download(){
+        $orders = DB::table('orders as o')
+                ->leftJoin('verkopers as vk', 'o.verkoper_id', '=', 'vk.id')
+                ->leftJoin('products as p', 'o.product_id', '=', 'p.id')
+                ->leftJoin('kopers as kp', 'o.verkoper_id', '=', 'kp.id')
+                ->leftJoin('vestigings as ves', 'o.verkoper_id', '=', 'ves.id')
+                ->select('o.id', 'o.order_nummer', 'o.datum_tijd', 
+                        'vk.naam as verkoper', 'kp.naam as koper',
+                        'p.naam as product', 'ves.naam as vestiging')
+                ->get();
+
+        $headers = [
+            'Content-Type' => 'application/vnd.ms-excel; charset=utf-8',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Content-Disposition' => 'attachment; filename=download.csv',
+            'Expires' => '0',
+            'Pragma' => 'public',
+        ];
+
+        if(!File::exists(public_path().'/files')){
+            File::makeDirectory(public_path().'/files');
+        }
+
+        $date = date('Ymd-His');
+        $filename = public_path('files/orders'.$date.'.csv');
+        $handle = fopen($filename, 'w');
+
+        fputcsv($handle, [
+            "ID",
+            "Koper",
+            "Datum / tijd",
+            "Product",
+            "Vestiging / verkoper",
+        ]);
+
+        foreach($orders as $order){
+            fputcsv($handle, [
+                $order->order_nummer,
+                $order->koper,
+                date('d/m/Y H:i:s', strtotime($order->datum_tijd)),
+                $order->product,
+                $order->vestiging.' / '.$order->verkoper
+            ]);
+        }
+        fclose($handle);
+
+        return response()->download($filename, 'orders'.$date.'.csv', $headers);
     }
 
     /**
