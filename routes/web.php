@@ -18,4 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/orders/download', [OrderController::class, 'download']);
+Route::get('/orders/chart', [OrderController::class, 'chart']);
 Route::resource('orders', OrderController::class);

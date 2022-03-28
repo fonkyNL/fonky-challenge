@@ -170,6 +170,16 @@ class OrderController extends Controller
         return response()->download($filename, 'orders'.$date.'.csv', $headers);
     }
 
+    public function chart(){
+        $data = DB::table('orders as o')
+                ->leftJoin('products AS p', 'o.product_id', '=', 'p.id')
+                ->groupBy('o.product_id')
+                ->select('p.naam as product', DB::raw('count(*) as amount'))
+                ->get();
+
+        return response()->json($data);
+    }
+
     /**
      * Display the specified resource.
      *
