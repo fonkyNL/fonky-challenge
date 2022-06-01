@@ -5,10 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Invoice extends Model
+class Order extends Model
 {
     protected $fillable = [
-        'name'
+        'id',
+        'buyer_id',
+        'product_id',
+        'establishment_id',
+        'seller_id',
+        'created_at'
     ];
 
     protected $with = [ // All invoices need their relations
