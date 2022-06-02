@@ -15,6 +15,7 @@
         </style>
     </head>
     <body>
+        @include('includes.nav')
         <div class="container">
             <table class="table">
                 <tr>

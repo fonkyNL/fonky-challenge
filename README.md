@@ -1,16 +1,51 @@
 # fonky-challenge
-Dit is de opdracht voor developers die bij Fonky solliciteren
+Mijn goal voor deze challange is om de data uit het csv bestand automatisch te importeren in de database en pie charts te maken voor de producten en kopers.
 
-Bij het interviewen van development posities, vinden we het belangrijk om code te zien en te bespreken. Daarom vragen we jou om aan een challenge te werken. Het is niet de bedoeling dat het je superveel tijd kost. De opdracht is breed geformuleerd; je zou er weken of dagen mee bezig kunnen zijn, maar dat is niet de bedoeling. Maak je daar geen zorgen om, het gaat er niet om dat het af is, maar dat jij iets werkends laat zien waarbij je je skills etaleert. 
+De pie charts zouden moeten laten zien welke producten het meest populair zijn en wie de grootste kopers zijn.
 
-**De opdracht**
+## Setup
+Zet hetvolgende in `.env`:
+```
+APP_NAME=Fonky-challange
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
 
-In deze repository vind je een folder Data met daarin orders.csv. In dit bestand zitten de orders van Fonky van verschillende vestigingen van één klant.
-Maak een dashboard van de resultaten voor deze klant. Je mag hier zelf weten wat je presenteert. 
-Maak een pull request aan waarin je in ieder geval een readme hebt opgenomen die uitlegt wat je moet doen om het resultaat te kunnen bekijken.
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=fonky
+DB_USERNAME=root
+DB_PASSWORD=
+```
+Vervang `DB_HOST`, `DB_DATABASE`, `DB_USERNAME` en `DB_PASSWORD` met inloggegevens voor een database.
 
-**Vrijheid**
+Installeer dependencies:
+```
+composer install
+```
 
-Deze opdracht is expres ruim geformuleerd. Je mag de technieken en tools gebruiken die je het liefst gebruikt. Je mag je tijd besteden aan de aspecten die je zelf het belangrijkst vindt. Er is geen tijd om alles te doen: maak een keuze. Bij Fonky werken we met PHP, JavaScript, HTML en CSS. Je mag frameworks en libraries gebruiken. Je mag de data in een ander formaat omzetten of importeren in databases. Dan wel in de readme uitleggen hoe een ander het werkend kan krijgen. 
- 
-De minimale requirement in de opdracht is "wat zijn de resultaten van deze klant voor Fonky". Dat kan in een lijstje, in een grafisch vorm, het kan als getallen of kleuren. Je kan het vergelijken met vorige week of een gemiddelde score. Probeer te bedenken wat voor Fonky het belangrijkst is. 
+Genereer `APP_KEY`:
+```
+php artisan key:generate
+```
+
+Maak benodigde tabellen aan:
+```
+php artisan migrate
+```
+
+Voer hetvolgende commando uit om orders.csv te importeren:
+```
+php artisan orders:import orders.csv
+```
+
+Start de webserver met:
+```
+php artisan serve
+```
+Of zorg er voor dat er een virtual host in apache word aangemaakt die wijst naar `/public`.
+
+## Gebruik
+Op de hoofdpagina van de website staat een lijst met alle orders. Onder het kopje producten staat een pie chart voor het aantal verkochte producten. Onder het kopje kopers staat een pie chart voor het aantal geplaatste orders door een koper.

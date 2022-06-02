@@ -14,6 +14,7 @@
         </style>
     </head>
     <body>
+        @include('includes.nav')
         <div class="container">
             <canvas id="product-chart" />
         </div>

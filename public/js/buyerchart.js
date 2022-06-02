@@ -7,13 +7,13 @@ const colors = [
     'rgba(255, 159, 64)'
 ];
 
-let test = async () => {
+let start = async () => {
     let response = await fetch('/api/buyers');
     let data = await response.json();
     data = data.orders;
 
     let ctx = document.getElementById('buyer-chart').getContext('2d');
-    let chart = new Chart(ctx, {
+    new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: data.map(x => x.name),
@@ -24,13 +24,6 @@ let test = async () => {
                 borderWidth: 1
             }]
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
     });
 }
-test();
+start();
