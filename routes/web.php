@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Order;
+use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [IndexController::class, 'index']);
+
+Route::get('/products', [IndexController::class, 'productchart']);
+Route::get('/buyers', [IndexController::class, 'buyerchart']);

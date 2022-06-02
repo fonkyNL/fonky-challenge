@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends Model
 {
@@ -23,23 +23,23 @@ class Order extends Model
         'establishment'
     ];
 
-    public function buyer(): HasOne
+    public function buyer(): BelongsTo
     {
-        return $this->hasOne(Buyer::class);
+        return $this->belongsTo(Buyer::class);
     }
 
-    public function seller(): HasOne
+    public function seller(): BelongsTo
     {
-        return $this->hasOne(Seller::class);
+        return $this->belongsTo(Seller::class);
     }
 
-    public function product(): HasOne
+    public function product(): BelongsTo
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
     }
 
-    public function establishment(): HasOne
+    public function establishment(): BelongsTo
     {
-        return $this->hasOne(Establishment::class);
+        return $this->belongsTo(Establishment::class);
     }
 }
