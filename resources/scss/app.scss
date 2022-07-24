@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.card {
+    @apply flex bg-white p-4 shadow-md rounded-md;
+}
+
+.select {
+    @apply rounded-md shadow border-none;
+}
+
+.card {
+    .header {
+        @apply text-xl font-semibold;
+    }
+}

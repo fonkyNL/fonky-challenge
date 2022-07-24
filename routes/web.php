@@ -20,6 +20,12 @@ Route::get('/', fn () => to_route('dashboard'));
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('dashboard', DashboardController::class)
         ->name('dashboard');
+
+    Route::get('customers', [CustomerController::class, 'index'])
+        ->name('customer.index');
+
+    Route::get('customers/{customer}', [CustomerController::class, 'show'])
+        ->name('customer.show');
 });
 
 require __DIR__.'/auth.php';
