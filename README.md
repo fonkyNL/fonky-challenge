@@ -9,7 +9,7 @@
 ```bash
 cp .env.example .env
 ```
-> **Note**
+> **Note** <br>
 > If you are using docker-compose (or sail) you should update the following .env variables
 > ```env
 > DB_HOST=mysql
@@ -24,7 +24,7 @@ cp .env.example .env
 ```bash
   composer install
 ```
-> **Note**
+> **Note** <br>
 > If you are using docker (or sail) you can run the following command
 > ```bash
 >  docker run --rm \
@@ -39,7 +39,7 @@ cp .env.example .env
 ```bash
 npm ci
 ```
-> **Note**
+> **Note** <br>
 > If you are using sail, run each command with `sail` prefixed
 > eg: in the case above it should be:
 > ```bash
@@ -50,7 +50,7 @@ npm ci
 ```bash
 npm run dev
 ```
-> **Note**
+> **Note** <br>
 > If you are having problems with your js/css files not being able to load
 > try removing the `server` key in its entirety from `vite.config.js`
 
