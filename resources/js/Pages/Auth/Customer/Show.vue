@@ -61,7 +61,6 @@ import {Inertia} from "@inertiajs/inertia";
 
 const props = defineProps<{
     customer: LaravelResource<Customer>,
-    orders: PaginatedCollection<Order>
     customerStats: unknown
 }>();
 
