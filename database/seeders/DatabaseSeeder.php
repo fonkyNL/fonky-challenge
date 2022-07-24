@@ -24,9 +24,9 @@ class DatabaseSeeder extends Seeder
                     ->has(Branch::factory())
                     ->has(Product::factory()->count(2))
                     ->has(Buyer::factory())
-                    ->count(100)
+                    ->count(fake()->numberBetween(10, 50))
             )
-            ->count(10)
+            ->count(2)
             ->create();
     }
 }
