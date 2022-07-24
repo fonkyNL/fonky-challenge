@@ -109,7 +109,7 @@ return [
 
     'ttl' => [
         'customers' => [
-            'statistics' => 1,
+            'statistics' => 60 * 10,
         ],
     ],
 
