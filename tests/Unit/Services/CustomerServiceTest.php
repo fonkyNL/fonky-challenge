@@ -15,8 +15,6 @@ use Tests\TestCase;
 /** @group Services\CustomerServiceTest */
 class CustomerServiceTest extends TestCase
 {
-    use LazilyRefreshDatabase;
-
     public function testTotalOrdersByProductsReturnsATotal()
     {
         $product = Product::factory()->create(['name' => 'D10']);

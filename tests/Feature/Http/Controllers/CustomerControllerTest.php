@@ -17,8 +17,6 @@ use Tests\TestCase;
 /** @group Controllers\CustomerControllerTest */
 class CustomerControllerTest extends TestCase
 {
-    use LazilyRefreshDatabase;
-
     public function testItCannotAccessIndexWhenUnauthenticated()
     {
         $this->get(route('customer.index'))
