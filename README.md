@@ -1,24 +1,79 @@
-# fonky-challenge
-This is the assignment for developers who apply at Fonky.
+**Setup**
 
-When interviewing development positions, we believe it is important to see and discuss code. That's why we ask you to work on a challenge. It is not meant to take you too much time, but on the other hand it ways very heavily in the application process. 
+#### Requirements
+- PHP 8.0+ (with ext-gd)
+- Node 14+
 
-The assignment is broadly formulated; it could take you weeks or days, but that's not the point. Don't worry about that, it's not about finishing it, but showing something that works and showing off your skills.
+### Setup 
+- Copy `.env.example`
+```bash
+cp .env.example .env
+```
+> **Note**
+> If you are using docker-compose (or sail) you should update the following .env variables
+> ```env
+> DB_HOST=mysql
+> DB_USERNAME=sail
+> DB_PASSWORD=password
+> REDIS_HOST=redis
+> MAIL_HOST=mailhog
+>```
 
-**The assignment**
 
-In this repository you will find a folder Data containing orders.csv. This file contains Fonky's orders from different locations of one customer. Create a dashboard of the results for this customer. Here you can decide for yourself what you are presenting. Create a pull request in which you have included at least a readme that explains what you need to do to view the result.
+#### Install composer dependencies
+```bash
+  composer install
+```
+> **Note**
+> If you are using docker (or sail) you can run the following command
+> ```bash
+>  docker run --rm \
+>    -u "$(id -u):$(id -g)" \
+>    -v $(pwd):/var/www/html \
+>    -w /var/www/html \
+>    laravelsail/php81-composer:latest \
+>    composer install --ignore-platform-reqs
+>```
 
-**Creative freedom**
+#### Install node dependencies
+```bash
+npm ci
+```
+> **Note**
+> If you are using sail, run each command with `sail` prefixed
+> eg: in the case above it should be:
+> ```bash
+> sail npm ci
+>```
 
-This assignment is deliberately broadly formulated. You may use the techniques and tools you prefer. You can spend your time on the aspects that are most important to you. There is no time to do everything: make a choice. At Fonky we work with Laravel and Vue. You are allowed to use frameworks and libraries. You may convert the data into another format or import it into databases. Then explain in the readme how someone else can get it working.
+#### Build node assets
+```bash
+npm run dev
+```
+> **Note**
+> If you are having problems with your js/css files not being able to load
+> try removing the `server` key in its entirety from `vite.config.js`
 
-The minimum requirement in the assignment is "what are the results of this client for Fonky". That can be in a list, in a graphic form, it can be as numbers or colors. You can compare it with last week or an average score. Try to think of what is most important to Fonky.
+#### Generate app key
+```bash
+php artisan key:generate
+```
 
-**What we pay attention to**
+#### Run install command
+```bash
+php artisan challenge:install
+```
+This will refresh your database, run your migrations, ask you for a default user and import the orders.
 
-- Design patterns
-- OOP
-- Consistency
-- Think about what you want to showcase
-- Check your code for mistakes before sending it (be self-critical)
+#### Load up the site!
+
+Visit your website on [localhost](http://localhost)
+and login with the user you just created!
+
+The challenge is accessible on [/customers](http://localhost/customers) or through the navigation by clicking on "Customers" on the top of the navigation bar.
+
+#### Run tests
+You can run the tests with
+```bash
+php artisan test
+```
