@@ -107,6 +107,16 @@ return [
 
     'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache_'),
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cache Time to Live
+    |--------------------------------------------------------------------------
+    |
+    | Different TTL for specific cache keys used within the application.
+    | You may specify a group of caches that should have the same TTL.
+    |
+    */
     'ttl' => [
         'customers' => [
             'statistics' => 60 * 10,
