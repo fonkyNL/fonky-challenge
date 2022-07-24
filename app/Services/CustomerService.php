@@ -58,7 +58,7 @@ class CustomerService
     public static function totalOrdersByBranch(Customer $customer, ?int $year = null)
     {
         return Cache::remember(
-            key:"customers.$customer->id.statistics.$year.total_orders_by_branch",
+            key: "customers.$customer->id.statistics.$year.total_orders_by_branch",
             ttl: config('cache.ttl.customers.statistics'),
             callback: fn () => DB::table('orders')
                 ->selectRaw('COUNT(branches.id) as total, branches.name')
@@ -80,7 +80,7 @@ class CustomerService
     public static function totalOrders(Customer $customer, ?int $year = null)
     {
         return Cache::remember(
-            key:"customers.$customer->id.statistics.$year.total_orders",
+            key: "customers.$customer->id.statistics.$year.total_orders",
             ttl: config('cache.ttl.customers.statistics'),
             callback: fn () => DB::table('orders')
                 ->selectRaw('COUNT(orders.id) as total')
