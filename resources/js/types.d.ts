@@ -25,12 +25,10 @@ interface PaginatedCollection<T> {
 }
 
 interface LaravelResource<T> {
-    data: T,
+  data: T,
 }
 
 type LaravelCollection<T> = T[];
-
-
 
 interface SharedPageProps {
   auth: {
@@ -52,30 +50,30 @@ interface Customer {
 }
 
 interface Branch {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }
 
 interface Employee {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }
 
 interface Product {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }
 
 interface Buyer {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }
 
 interface Order {
-    id: number;
-    products: LaravelCollection<Product>;
-    branch: null|Branch
-    employee: null|Employee
-    buyer: null|Buyer
-    ordered_at: string
+  id: number;
+  products: LaravelCollection<Product>;
+  branch: null|Branch
+  employee: null|Employee
+  buyer: null|Buyer
+  ordered_at: string
 }
