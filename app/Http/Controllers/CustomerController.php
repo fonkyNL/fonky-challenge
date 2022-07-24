@@ -17,7 +17,7 @@ class CustomerController extends Controller
             'customers' => fn () => CustomerResource::collection(
                 Customer::query()
                     ->withCount('orders')
-                    ->when($request->search, fn ($query) => $query->where('name', 'LIKE', "%$request->search%"))
+                    ->when($request->search, fn ($query) => $query->where('name', 'LIKE', "$request->search%"))
                     ->cursorPaginate()
                     ->withQueryString()
             ),
