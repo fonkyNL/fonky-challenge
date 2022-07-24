@@ -72,8 +72,14 @@ and login with the user you just created!
 
 The challenge is accessible on [/customers](http://localhost/customers) or through the navigation by clicking on "Customers" on the top of the navigation bar.
 
+#### Extra data
+You can add additional data by running the database seeder:
+```bash
+php artisan db:seed
+```
+
 #### Run tests
-You can run the tests with
+You can run the tests with:
 ```bash
 php artisan test
 ```

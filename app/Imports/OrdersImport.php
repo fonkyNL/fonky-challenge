@@ -60,6 +60,15 @@ class OrdersImport implements ToCollection, WithHeadingRow, WithValidation
         });
     }
 
+    /**
+     * Split the branch name and buyer name
+     * Example: Nijmegen / Harry van der Hoeven
+     * returns the following array:
+     * [
+     *   'Nijmegen',
+     *   'Harry van der Hoeven'
+     * ]
+     */
     public function splitBranchAndName(string $branchAndNameString): array
     {
         return collect(explode('/', $branchAndNameString))
@@ -68,7 +77,7 @@ class OrdersImport implements ToCollection, WithHeadingRow, WithValidation
     }
 
     /*
-     * The function that transforms the data that is received
+     * Transforms the data that is received
      */
     public function prepareForValidation(array $data)
     {
