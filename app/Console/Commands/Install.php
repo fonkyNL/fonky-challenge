@@ -31,6 +31,8 @@ class Install extends Command
 
         $this->call('orders:import');
 
+        $this->call('cache:clear');
+
         return 0;
     }
 }
