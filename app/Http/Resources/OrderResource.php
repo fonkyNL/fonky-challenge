@@ -2,8 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Order;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Order
+ */
 class OrderResource extends JsonResource
 {
     /**
@@ -13,8 +17,8 @@ class OrderResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'ordered_at' => $this->ordered_at?->format('d-m-Y H:i'),
-            'updated_at' => $this->updated_at?->format('d-m-Y H:i'),
+            'ordered_at' => $this->ordered_at->format('d-m-Y H:i'),
+            'updated_at' => $this->updated_at->format('d-m-Y H:i'),
         ];
     }
 }
