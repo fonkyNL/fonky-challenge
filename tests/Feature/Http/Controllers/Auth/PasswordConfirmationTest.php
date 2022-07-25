@@ -1,9 +1,8 @@
 <?php
 
-namespace Http\Controllers\Auth;
+namespace Tests\Feature\Http\Controllers\Auth;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class PasswordConfirmationTest extends TestCase
