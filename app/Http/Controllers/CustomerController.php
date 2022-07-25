@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
-use App\Services\CustomerService;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -25,7 +25,7 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function show(Request $request, Customer $customer)
+    public function show(Request $request, Customer $customer): Response
     {
         $this->validate($request, [
             'year' => ['nullable', 'integer', 'min:1980', 'max:9999'],
@@ -34,10 +34,10 @@ class CustomerController extends Controller
         return Inertia::render('Auth/Customer/Show', [
             'customer' => fn () => CustomerResource::make($customer),
             'customerStats' => fn () => [
-                'total_orders_by_product' => CustomerService::totalOrdersByProduct($customer, $request->year),
-                'total_orders_by_employee' => CustomerService::totalOrdersByEmployee($customer, $request->year),
-                'total_orders_by_branch' => CustomerService::totalOrdersByBranch($customer, $request->year),
-                'total_orders' => CustomerService::totalOrders($customer, $request->year),
+                'total_orders_by_product' => OrderService::totalOrdersByProduct($customer, $request->year),
+                'total_orders_by_employee' => OrderService::totalOrdersByEmployee($customer, $request->year),
+                'total_orders_by_branch' => OrderService::totalOrdersByBranch($customer, $request->year),
+                'total_orders' => OrderService::totalOrders($customer, $request->year),
             ],
         ]);
     }
