@@ -6,14 +6,14 @@ use App\Models\Branch;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
-use App\Services\CustomerService;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use App\Services\OrderService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 use Tests\TestCase;
 
 /** @group Services\CustomerServiceTest */
-class CustomerServiceTest extends TestCase
+class OrderServiceTest extends TestCase
 {
     public function testTotalOrdersByProductsReturnsATotal()
     {
@@ -27,7 +27,7 @@ class CustomerServiceTest extends TestCase
             )
             ->create();
 
-        $result = CustomerService::totalOrdersByProduct($customer);
+        $result = OrderService::totalOrdersByProduct($customer);
 
         $this->assertCount(1, $result);
         $this->assertEquals(2, $result[0]->total);
@@ -39,7 +39,7 @@ class CustomerServiceTest extends TestCase
         $customer = Customer::factory()->create();
 
         DB::enableQueryLog();
-        CustomerService::totalOrdersByProduct($customer, 2020);
+        OrderService::totalOrdersByProduct($customer, 2020);
 
         $queryLog = DB::getQueryLog();
 
@@ -60,7 +60,7 @@ class CustomerServiceTest extends TestCase
             ->once()
             ->andReturn(collect());
 
-        CustomerService::totalOrdersByProduct($customer, 2022);
+        OrderService::totalOrdersByProduct($customer, 2022);
     }
 
     public function testTotalOrdersByBranchReturnsATotal()
@@ -75,7 +75,7 @@ class CustomerServiceTest extends TestCase
             )
             ->create();
 
-        $result = CustomerService::totalOrdersByBranch($customer);
+        $result = OrderService::totalOrdersByBranch($customer);
 
         $this->assertCount(1, $result);
         $this->assertEquals(2, $result[0]->total);
@@ -87,7 +87,7 @@ class CustomerServiceTest extends TestCase
         $customer = Customer::factory()->create();
 
         DB::enableQueryLog();
-        CustomerService::totalOrdersByBranch($customer, 2020);
+        OrderService::totalOrdersByBranch($customer, 2020);
 
         $queryLog = DB::getQueryLog();
 
@@ -108,7 +108,7 @@ class CustomerServiceTest extends TestCase
             ->once()
             ->andReturn(collect());
 
-        CustomerService::totalOrdersByBranch($customer, 2022);
+        OrderService::totalOrdersByBranch($customer, 2022);
     }
 
     public function testTotalOrdersReturnsATotal()
@@ -120,7 +120,7 @@ class CustomerServiceTest extends TestCase
             )
             ->create();
 
-        $result = CustomerService::totalOrders($customer);
+        $result = OrderService::totalOrders($customer);
 
         $this->assertEquals(2, $result->total);
     }
@@ -130,7 +130,7 @@ class CustomerServiceTest extends TestCase
         $customer = Customer::factory()->create();
 
         DB::enableQueryLog();
-        CustomerService::totalOrders($customer, 2020);
+        OrderService::totalOrders($customer, 2020);
 
         $queryLog = DB::getQueryLog();
 
@@ -149,8 +149,8 @@ class CustomerServiceTest extends TestCase
                 "customers.$customer->id.statistics.2022.total_orders",
                 config('cache.ttl.customers.statistics'))
             ->once()
-            ->andReturn(collect());
+            ->andReturn(new stdClass());
 
-        CustomerService::totalOrders($customer, 2022);
+        OrderService::totalOrders($customer, 2022);
     }
 }
