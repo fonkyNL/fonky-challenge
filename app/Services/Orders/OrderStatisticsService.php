@@ -1,102 +1,17 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Orders;
 
-use App\Models\Branch;
-use App\Models\Buyer;
 use App\Models\Customer;
-use App\Models\Employee;
-use App\Models\Order;
-use Carbon\Carbon;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use stdClass;
 
-class OrderService
+class OrderStatisticsService
 {
-    protected Customer $customer;
-
-    protected ?Branch $branch;
-
-    protected ?Buyer $buyer;
-
-    protected ?Employee $employee;
-
-    public function createOrder(?Carbon $orderedAt = null): Order
-    {
-        return Order::create([
-            'customer_id' => $this->customer->id,
-            'branch_id' => $this->branch?->id,
-            'buyer_id' => $this->buyer?->id,
-            'employee_id' => $this->employee?->id,
-            'ordered_at' => $orderedAt ?? now(),
-        ]);
-    }
-
-    public function forCustomer(string|Customer $customer): self
-    {
-        if ($customer instanceof Customer) {
-            $this->customer = $customer;
-
-            return $this;
-        }
-
-        $this->customer = Customer::firstOrCreate([
-            'name' => $customer,
-        ]);
-
-        return $this;
-    }
-
-    public function atBranch(string|Branch $branch): self
-    {
-        if ($branch instanceof Branch) {
-            $this->branch = $branch;
-
-            return $this;
-        }
-
-        $this->branch = Branch::firstOrCreate([
-            'name' => $branch,
-            'location' => $branch,
-        ]);
-
-        return $this;
-    }
-
-    public function boughtBy(string|Buyer $buyer): self
-    {
-        if ($buyer instanceof Buyer) {
-            $this->buyer = $buyer;
-
-            return $this;
-        }
-
-        $this->buyer = Buyer::firstOrCreate([
-            'name' => $buyer,
-        ]);
-
-        return $this;
-    }
-
-    public function soldBy(string|Employee $employee): self
-    {
-        if ($employee instanceof Employee) {
-            $this->employee = $employee;
-
-            return $this;
-        }
-
-        $this->employee = Employee::firstOrCreate([
-            'name' => $employee,
-        ]);
-
-        return $this;
-    }
-
-    public static function totalOrdersByProduct(Customer $customer, ?int $year = null): Collection
+    public function totalOrdersByProduct(Customer $customer, ?int $year = null): Collection
     {
         return Cache::remember(
             key: "customers.$customer->id.statistics.$year.total_orders_by_product",
@@ -119,7 +34,7 @@ class OrderService
         );
     }
 
-    public static function totalOrdersByEmployee(Customer $customer, ?int $year = null): Collection
+    public function totalOrdersByEmployee(Customer $customer, ?int $year = null): Collection
     {
         return Cache::remember(
             key: "customers.$customer->id.statistics.$year.total_orders_by_employee",
@@ -141,7 +56,7 @@ class OrderService
         );
     }
 
-    public static function totalOrdersByBranch(Customer $customer, ?int $year = null): Collection
+    public function totalOrdersByBranch(Customer $customer, ?int $year = null): Collection
     {
         return Cache::remember(
             key: "customers.$customer->id.statistics.$year.total_orders_by_branch",
@@ -163,7 +78,7 @@ class OrderService
         );
     }
 
-    public static function totalOrders(Customer $customer, ?int $year = null): stdClass
+    public function totalOrders(Customer $customer, ?int $year = null): stdClass
     {
         return Cache::remember(
             key: "customers.$customer->id.statistics.$year.total_orders",

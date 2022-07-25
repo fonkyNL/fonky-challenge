@@ -4,7 +4,7 @@ namespace App\Imports;
 
 use App\Models\Customer;
 use App\Models\Product;
-use App\Services\OrderService;
+use App\Services\Orders\OrderService;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
