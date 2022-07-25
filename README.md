@@ -83,3 +83,9 @@ You can run the tests with:
 ```bash
 php artisan test
 ```
+
+You can run PHPStan with:
+```bash
+./vendor/bin/phpstan analyse
+```
+
