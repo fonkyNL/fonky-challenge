@@ -10,15 +10,6 @@
 ```bash
 cp .env.example .env
 ```
-> **Note** <br>
-> Update the following .env variables
-> ```env
-> DB_HOST=mysql
-> DB_USERNAME=sail
-> DB_PASSWORD=password
-> REDIS_HOST=redis
-> MAIL_HOST=mailhog
->```
 
 #### Install composer dependencies
 
