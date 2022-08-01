@@ -67,12 +67,6 @@ laravel.test:
 ```bash
 npm ci
 ```
-> **Note** <br>
-> If you are using sail, run each command with `sail` prefixed
-> eg: in the case above it should be:
-> ```bash
-> sail npm ci
->```
 
 #### Build node assets
 ```bash
