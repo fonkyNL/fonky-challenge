@@ -53,7 +53,8 @@ laravel.test:
     image: sail-8.1/app
 ```
 
-
+If you already have an image with `sail-8.1/app` and tag `latest` and wish to not override it,
+you can simply change the name of the image in the docker-compose.yml file. 
 #### Install node dependencies
 ```bash
 sail npm ci
