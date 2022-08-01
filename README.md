@@ -3,14 +3,15 @@
 #### Requirements
 - PHP 8.0+ (with ext-gd)
 - Node 14+
+- Docker
 
-### Setup 
+### Setup
 - Copy `.env.example`
 ```bash
 cp .env.example .env
 ```
 > **Note** <br>
-> If you are using docker-compose (or sail) you should update the following .env variables
+> Update the following .env variables
 > ```env
 > DB_HOST=mysql
 > DB_USERNAME=sail
@@ -19,21 +20,48 @@ cp .env.example .env
 > MAIL_HOST=mailhog
 >```
 
-
 #### Install composer dependencies
+
+If you do not have a vendor folder yet run:
 ```bash
-  composer install
+docker run --rm \
+  -u "$(id -u):$(id -g)" \
+  -v $(pwd):/var/www/html \
+  -w /var/www/html \
+  laravelsail/php81-composer:latest \
+  composer install --ignore-platform-reqs
 ```
-> **Note** <br>
-> If you are using docker (or sail) you can run the following command
-> ```bash
->  docker run --rm \
->    -u "$(id -u):$(id -g)" \
->    -v $(pwd):/var/www/html \
->    -w /var/www/html \
->    laravelsail/php81-composer:latest \
->    composer install --ignore-platform-reqs
->```
+if you do you can start Sail with:
+```bash
+./vendor/bin/sail up -d
+```
+
+#### Using sail
+You can execute Sail by executing the following command:
+
+`./vendor/bin/sail`
+
+If you do not want to type the entire command every single time, you can create an alias.
+
+Add the following to your `.bashrc` or `.bash_aliases`
+
+`alias sail='./vendor/bin/sail'`
+
+then refresh your terminal. You can now use the sail alias by going to 
+your project root and executing 
+
+`sail up -d`
+
+If you do not have the image specified in `docker-compose.yml` locally installed, it will build the image 
+for you and store it under the specified name (in this instance `sail-8.1/app`)
+You can see your images by running: `docker images`
+```yml
+services:
+laravel.test:
+    ...
+    image: sail-8.1/app
+```
+
 
 #### Install node dependencies
 ```bash
