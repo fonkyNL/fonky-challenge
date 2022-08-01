@@ -65,12 +65,12 @@ laravel.test:
 
 #### Install node dependencies
 ```bash
-npm ci
+sail npm ci
 ```
 
 #### Build node assets
 ```bash
-npm run dev
+sail npm run dev
 ```
 > **Note** <br>
 > If you are having problems with your js/css files not being able to load
@@ -78,12 +78,12 @@ npm run dev
 
 #### Generate app key
 ```bash
-php artisan key:generate
+sail php artisan key:generate
 ```
 
 #### Run install command
 ```bash
-php artisan challenge:install
+sail php artisan challenge:install
 ```
 This will refresh your database, run your migrations, ask you for a default user and import the orders.
 
@@ -97,13 +97,13 @@ The challenge is accessible on [/customers](http://localhost/customers) or throu
 #### Extra data
 You can add additional data by running the database seeder:
 ```bash
-php artisan db:seed
+sail php artisan db:seed
 ```
 
 #### Run tests
 You can run the tests with:
 ```bash
-php artisan test
+sail php artisan test
 ```
 
 You can run PHPStan with:
