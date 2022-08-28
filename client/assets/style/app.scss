@@ -1,0 +1,56 @@
+html,
+body,
+#__nuxt,
+#__layout {
+  @apply h-full;
+}
+
+body {
+  @apply bg-light;
+}
+
+input, select, textarea, button, div, a {
+  &:focus, &:active {
+    outline: none;
+  }
+}
+.router-link-exact-active {
+  @apply text-white;
+}
+
+
+::-webkit-scrollbar {
+  @apply w-2 h-auto;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-light;
+}
+
+// For Internet Explorer
+body {
+  scrollbar-face-color: theme('colors.primary');
+  scrollbar-track-color: theme('colors.gray-light');
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity .2s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .15s
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0
+}

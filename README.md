@@ -1,24 +1,40 @@
-# fonky-challenge
-This is the assignment for developers who apply at Fonky.
+#### Overview
+This repo is seprated in 2 projects: **server (laravel)** and the **client (vue)**. 
 
-When interviewing development positions, we believe it is important to see and discuss code. That's why we ask you to work on a challenge. It is not meant to take you too much time, but on the other hand it ways very heavily in the application process. 
+### Requirement
+I didnt had the time to create a docker container but there is not much that you need.
+- PHP 8+ (I'm using 8.1.5)
+- Yarn 1.22+ (I'm using 1.22.18)
 
-The assignment is broadly formulated; it could take you weeks or days, but that's not the point. Don't worry about that, it's not about finishing it, but showing something that works and showing off your skills.
+### Installation
 
-**The assignment**
+##### Server
+1. Go to the server folder
+2. Open **.env.example** and change DB_DATABASE to your database name (default name is **fonky**).
+3. Run `composer install`
+4. Run `cp .env.example .env`
+5. Run `composer install`
+6. Run `php artisan fonky:install`
+7. Serve the application `php artisan serve`
 
-In this repository you will find a folder Data containing orders.csv. This file contains Fonky's orders from different locations of one customer. Create a dashboard of the results for this customer. Here you can decide for yourself what you are presenting. Create a pull request in which you have included at least a readme that explains what you need to do to view the result.
+##### Client
+1. Open new terminal tab or window.
+2. Go to the client folder
+3. Open **.env.example** and change API_URL **if needed** (default http://localhost:8000). You can check the api url in the **server** terminal tab/window that you just opened.
+4. Run `cp .env.example .env`
+5. Run `yarn`
+6. Run `yarn dev`
 
-**Creative freedom**
 
-This assignment is deliberately broadly formulated. You may use the techniques and tools you prefer. You can spend your time on the aspects that are most important to you. There is no time to do everything: make a choice. At Fonky we work with Laravel and Vue. You are allowed to use frameworks and libraries. You may convert the data into another format or import it into databases. Then explain in the readme how someone else can get it working.
+#### Visit the dashboard
+The dashboard is now available on http://localhost:3000 if this port is already been used check the **client** terminal tab/window what the url is.
 
-The minimum requirement in the assignment is "what are the results of this client for Fonky". That can be in a list, in a graphic form, it can be as numbers or colors. You can compare it with last week or an average score. Try to think of what is most important to Fonky.
 
-**What we pay attention to**
+#### Notes
 
-- Design patterns
-- OOP
-- Consistency
-- Think about what you want to showcase
-- Check your code for mistakes before sending it (be self-critical)
+##### Server
+- Almost all code can be found in app/Services/Fonky
+- Order seeder can be found in app/database/seeders this should already be installed while running `php artisan fonky:install`
+
+##### Client
+- Build with Tailwind and Nuxtjs
