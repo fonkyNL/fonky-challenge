@@ -1,3 +1,5 @@
+const apiUrl = `${process.env.SERVER_URL}:${process.env.SERVER_PORT}/`
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -37,7 +39,8 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
-    '@nuxt/content'
+    '@nuxt/content',
+    '@nuxtjs/proxy'
   ],
 
   router: {
@@ -46,14 +49,21 @@ export default {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: process.env.API_URL,
+    proxy: true,
+    browserBaseURL: apiUrl
+  },
+
+  proxy: {
+    "/api/": {
+      target: apiUrl,
+    }
   },
 
   auth: {
     strategies: {
       'laravelJWT': {
         provider: 'laravel/jwt',
-        url: process.env.API_URL,
+        url: apiUrl,
         endpoints: {
           login: { url: 'auth/login', method: 'post' },
           logout: { url: 'auth/logout', method: 'post' },
@@ -69,7 +79,10 @@ export default {
       },
     },
     redirect: {
-      login: '/auth/login'
+      login: '/auth/login',
+      logout: '/auth/login',
+      callback: '/auth/login',
+      home: '/'
     }
   },
 

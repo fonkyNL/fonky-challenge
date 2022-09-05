@@ -10,12 +10,15 @@
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div v-if="error" class="pb-5">
+          <span class="text-red-400 text-sm"> {{ this.error }} </span>
+        </div>
+
         <form class="space-y-6" action="#" method="POST" @submit.prevent="submit">
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700"> Email address </label>
             <div class="mt-1">
               <BaseInputText type="email" id="email" v-model="form.email" autocapitalize="off" autocomplete="email" placeholder="youremail@example.com" />
-              <!-- <div v-if="errors.email">{{ errors.email[0] }}</div> -->
             </div>
           </div>
 
@@ -23,7 +26,6 @@
             <label for="password" class="block text-sm font-medium text-gray-700"> Password </label>
             <div class="mt-1">
               <BaseInputText type="password" id="password" v-model="form.password" autocapitalize="off" placeholder="********" />
-              <!-- <div v-if="errors.password">{{ errors.password[0] }}</div> -->
             </div>
           </div>
 
@@ -56,7 +58,8 @@ export default {
       form: {
         email: 'hello@fonky.nl',
         password: 'fonky123',
-      }
+      },
+      error: ''
     }
   },
 
@@ -69,14 +72,14 @@ export default {
         }
 
         await this.$auth.loginWith('laravelJWT', { data: data })
-      } catch (err) {
-        const error = err
+      } catch (serverError) {
+        const error = serverError
 
         if (! axios.isAxiosError(error)){
-          throw err
+          throw serverError
         }
 
-        this.errors = error.response
+        this.error = serverError.response.data.message
       }
     }
   }  

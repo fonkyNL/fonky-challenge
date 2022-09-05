@@ -25,7 +25,7 @@ export default {
 
   methods: {
     update() {
-      return this.input.value
+      return this.$emit('input', this.$refs.input.value)
     }
   }
 }

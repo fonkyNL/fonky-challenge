@@ -25,7 +25,8 @@ module.exports = {
 
       gray: colors.gray,
       indigo: colors.indigo,
-      sky: colors.sky
+      sky: colors.sky,
+      red: colors.red
     })
   },
   plugins: [require('@tailwindcss/forms')],

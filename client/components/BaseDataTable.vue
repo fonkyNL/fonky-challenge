@@ -6,7 +6,7 @@
           <table class="min-w-full divide-y divide-gray-300">
             <thead class="bg-gray-50">
               <tr>
-                <th v-for="header in tableHeader" key="" scope="col"
+                <th v-for="header in tableHeader" :key="header.label" scope="col"
                   class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                   {{ header.label }}
                 </th>
