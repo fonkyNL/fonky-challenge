@@ -24,3 +24,4 @@ make import-orders
 3. [Tailwind](https://tailwindcss.com/)
 4. [Headless UI](https://headlessui.com/)
 5. [Tanstack Query](https://tanstack.com/query/latest/docs/vue/installation)
+6. [Iconify](https://iconify.design/)
