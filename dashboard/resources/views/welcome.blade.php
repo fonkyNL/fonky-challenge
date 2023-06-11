@@ -11,14 +11,14 @@
   <div class="card-body">
     <h5 class="card-title">View Orders</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="{{ route('show.orders') }}" class="btn btn-primary">Show orders</a>  
+    <a href="{{ route('orders.index') }}" class="btn btn-primary">Show orders</a>  
   </div>
 </div>
 <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
   <div class="card-header">Header</div>
   <div class="card-body">
     <h5 class="card-title">Primary card title</h5>
-    <a href="{{ route('show.orders') }}" class="btn btn-primary">Show orders</a>  
+    <a href="{{ route('orders.index') }}" class="btn btn-primary">Show orders</a>  
   </div>
 </div>
 
