@@ -23,4 +23,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //orders
-Route::get('/orders', [OrdersController::class, 'index'])->name('show.orders');
+Route::resource('/orders', OrdersController::class);
