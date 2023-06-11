@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('koper');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->string('product');
-            $table->string('Vestiging');
+            $table->string('vestiging');
             $table->string('verkoper');
         });
     }
