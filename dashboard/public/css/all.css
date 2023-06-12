@@ -1,0 +1,16 @@
+.card-header img {
+	width: 30px;
+}
+
+.some{
+    background-color: green;
+}
+.card-header{
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	color: #606368;
+	font-size: 25px;
+	line-height: 40px;
+}
