@@ -17,7 +17,7 @@
 		</ul>
 	</nav>
     @if(isset($order))         
-        <form action="{{ route('orders.update', ['order' => $order->id]) }}" method="put">
+        <form action="{{ route('orders.update', ['order' => $order->id]) }}" method="get">
     @else
         <form action="{{ route('orders.store') }}" method="get">
     @endif
