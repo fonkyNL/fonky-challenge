@@ -3,6 +3,7 @@
 namespace App\Tables;
 
 use App\Models\Order;
+use App\Tables\RowActions\DestroyAction;
 use Okipa\LaravelTable\Table;
 use Okipa\LaravelTable\Column;
 use Okipa\LaravelTable\RowActions\EditRowAction;
@@ -22,7 +23,7 @@ class OrdersTable extends AbstractTableConfiguration
             ->rowActions(fn(Order $order) => [
                 new ShowRowAction(route('orders.show', $order)),
                 new EditRowAction(route('orders.edit', $order)),
-                new DestroyRowAction(route('orders.destroy', $order))
+                new DestroyAction('orders/destroy'.$order)
             ]);
     }
 
