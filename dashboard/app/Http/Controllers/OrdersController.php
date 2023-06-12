@@ -58,11 +58,10 @@ class OrdersController extends Controller
     //     // return view('Orders.createOrEdit')->with('order', $order);
     // }
     
-    public function delte($id): View
+    public function destroy($id): View
     {   
-        dd('de');
-        // $order = Order::find($id);
-        // return view('Orders.createOrEdit')->with('order', $order);
+        Order::find($id)->delete();
+        return view('Orders.index');
     }
 
 
