@@ -19,7 +19,7 @@
     @if(isset($order))         
         <form action="{{ route('orders.update', ['order' => $order->id]) }}" method="put">
     @else
-        <form action="{{ route('orders.create') }}" method="POST">
+        <form action="{{ route('orders.store') }}" method="get">
     @endif
         Koper <input type="text" id="Koper" name="Koper" value="{{isset($order)? $order->koper : ''}}">  <br>
         Product <input type="text" id="Product" name="product" value="{{isset($order)? $order->product : ''}}"> <br>

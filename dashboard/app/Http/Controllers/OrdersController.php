@@ -25,31 +25,42 @@ class OrdersController extends Controller
         return view('Orders.createOrEdit')->with('order', $order);
     }
 
+
+    public function create(){
+        return view('Orders.createOrEdit');
+    }
+
+    public function store(){
+        $order = new Order();
+        $order->koper = Request::input('Koper');
+        $order->product = Request::input('product');
+        $order->vestiging = Request::input('vestiging');
+        $order->verkoper = Request::input('verkoper');
+        $order->save();
+        return view('Orders.index');
+    }
+
     public function update($id): View
     {   
-        // dd($id);
         $order = Order::find($id);
         $order->koper = Request::input('Koper');
         $order->product = Request::input('product');
         $order->vestiging = Request::input('vestiging');
         $order->verkoper = Request::input('verkoper');
-
         $order->save();
         return view('Orders.index');
-
-
     }
 
-    public function show($id): View
-    {   
-        dd('kkkk');
-        // $order = Order::find($id);
-        // return view('Orders.createOrEdit')->with('order', $order);
-    }
+    // public function show($id): View
+    // {   
+    //     // dd('show');
+    //     // $order = Order::find($id);
+    //     // return view('Orders.createOrEdit')->with('order', $order);
+    // }
     
     public function delte($id): View
     {   
-        dd('kkkk');
+        dd('de');
         // $order = Order::find($id);
         // return view('Orders.createOrEdit')->with('order', $order);
     }
