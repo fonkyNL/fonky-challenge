@@ -11,8 +11,7 @@ Route::get('/', function () {
 Route::get('orders', [OrdersController::class, 'index'])->name('orders.index');
 
 
-// Show route
-Route::get('orders/{order}', [OrdersController::class, 'show'])->name('orders.show');
+
 
 // Create route
 Route::get('orders/create', [OrdersController::class, 'create'])->name('orders.create');
@@ -29,4 +28,7 @@ Route::get('orders/{order}/update', [OrdersController::class, 'update'])->name('
 
 
 // Delete route
-Route::delete('orders/{order}', [OrdersController::class, 'destroy'])->name('orders.destroy');
+Route::get('orders/destroy/{order}', [OrdersController::class, 'destroy'])->name('orders.destroy');
+
+// Show route
+Route::get('orders/{order}', [OrdersController::class, 'show'])->name('orders.show');
