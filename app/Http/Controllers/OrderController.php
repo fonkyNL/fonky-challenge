@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use App\Classes\Utility\CsvParser;
 
 class OrderController extends Controller
 {
@@ -68,54 +69,34 @@ class OrderController extends Controller
 
     public function fillFromCSVFile() {
         $csvFile = fopen("../orders.csv","r");
-        echo "<table>\n";
-        $data = fgetcsv($csvFile, 500, ",");
-        echo "<tr>";
-        for($i = 0; $i < count($data); $i++) {
-            if ($i == 2 or $i == 4) {
-                $array = explode('/', $data[$i]);
-                foreach ($array as $item) {
-                    echo "<th>".$item."</th>";
-                }
-            } else {
-                echo "<th>" . $data[$i] . "</th>";
-            }
 
-        }
-        echo "</tr>";
-        while(($data = fgetcsv($csvFile, 500, ",")) !== FALSE) {
-            $orderExists = Order::where('ID', intval($data[0]));
+        $columnsToSplit = [2 => '/', 4 => '/'];
+        $valuesToSplit = [2 => ' ', 4 => '/'];
+
+        $csvArray = CsvParser::parseFileWithHeaders($csvFile, $columnsToSplit, $valuesToSplit);
+
+        foreach ($csvArray as $row) {
+            foreach ($row as $key => $value) {
+                echo $key . ": " . $value ."<br>";
+            }
+            print_r($row);
+            $orderExists = Order::where('ID', intval($row["﻿ID"]));
             if (!$orderExists->exists()) {
                 $order = Order::create([
-                    'ID' => intval($data[0]),
-                    'Koper' => $data[1],
-                    'Datum' => date('Y-m-d', strtotime(explode(' ', $data[2])[0])),
-                    'Tijd' => explode(' ', $data[2])[1],
-                    'Product' => $data[3],
-                    'Vestiging' => explode('/', $data[4])[0],
-                    'Verkoper' => explode('/', $data[4])[1]]
-                );
+                    'ID' => intval($row['﻿ID']),
+                    'Koper' => $row['Koper'],
+                    'Datum' => date('Y-m-d', strtotime($row['Datum'])),
+                    'Tijd' => $row['Tijd'],
+                    'Product' => $row['Product'],
+                    'Vestiging' => $row['Vestiging'],
+                    'Verkoper' => $row['Verkoper']
+                ]);
+                echo "This Row was added<br>";
+            } else {
+                echo "This Row already exists<br>";
             }
-            echo "<tr>";
-            for($i = 0; $i < count($data); $i++) {
-                if ($i == 2) {
-                    $array = explode(' ', $data[$i]);
-                    foreach ($array as $item) {
-                        echo "<td>".$item."</td>";
-                    }
-                } else if ($i == 4) {
-                    $array = explode('/', $data[$i]);
-                    foreach ($array as $item) {
-                        echo "<td>".$item."</td>";
-                    }
-                } else {
-                    echo "<td>" . $data[$i] . "</td>";
-                }
-            }
-
-            echo "</tr>\n";
+            echo "==================<br>";
         }
-        echo "</table>\n";
         fclose($csvFile);
     }
 
