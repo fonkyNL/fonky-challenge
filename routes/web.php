@@ -18,3 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/user', [App\Http\Controllers\UserController::class, 'index']);
+Route::get('/readOrderFromCsv', [App\Http\Controllers\OrderController::class, 'fillFromCSVFile']);
+Route::get('/order-insights/{fieldName}', [App\Http\Controllers\OrderController::class, 'orderInsights']);
