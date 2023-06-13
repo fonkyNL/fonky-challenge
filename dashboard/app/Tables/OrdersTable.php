@@ -24,7 +24,6 @@ class OrdersTable extends AbstractTableConfiguration
             ->model(Order::class)
             ->headAction(new CreateHeadAction(route('orders.create')))
             ->rowActions(fn(Order $order) => [
-                new ShowRowAction(route('orders.show', $order)),
                 new EditRowAction(route('orders.edit', $order)),
                 new DestroyAction('orders/destroy'.$order)
             ]);

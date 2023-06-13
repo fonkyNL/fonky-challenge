@@ -50,12 +50,6 @@ class OrdersController extends Controller
         $order->save();
         return Redirect::to('orders');
     }
-
-    public function show($id): View
-    {   
-        $order = Order::find($id);
-        return view('Orders.show')->with('order', $order);
-    }
     
     public function destroy($id)
     {   
