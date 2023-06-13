@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('koper');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->nullable()->default(null);
             $table->string('product');
             $table->string('vestiging');
             $table->string('verkoper');
