@@ -16,7 +16,6 @@ class OrdersController extends Controller
 
     public function index(): View
     {
-        $table = new OrdersTable();
         return view('Orders.index');
     }
     
