@@ -64,11 +64,11 @@ class OrdersController extends Controller
     }
     
     public function showEmployeeOrders($employee){
-        dd($employee);
+        return view('Orders.index')->with(['employee' => $employee]);
     }
     
     public function shoeProductOrders($product){
-        dd($product);
+        return view('Orders.index')->with(['product' => $product]);
     }
     
 }
