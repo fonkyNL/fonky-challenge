@@ -17,7 +17,7 @@
     <div class="card-body">
       <h5 class="card-title">Top ten Products</h5>
       <p class="card-text">know Your best sellers</p>
-      <a href="" class="btn btn-primary">Show orders</a>  
+      <a href="{{ route('show-products') }}" class="btn btn-primary">Show orders</a>  
     </div>
   </div>
 </div>
@@ -27,7 +27,7 @@
     <div class="card-body">
       <h5 class="card-title">Top ten Employees</h5>
       <p class="card-text">See your best employees</p>
-      <a href="" class="btn btn-primary">Show orders</a>  
+      <a href="{{ route('show-employees') }}" class="btn btn-primary">Show orders</a>  
     </div>
   </div>
 </div>
