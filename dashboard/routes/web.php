@@ -2,10 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/' , [HomeController::class, 'index']);
 
 // Index route
 Route::get('orders', [OrdersController::class, 'index'])->name('orders.index');
