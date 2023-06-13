@@ -21,7 +21,6 @@ class HomeController extends Controller
     {
         $sells = $this->getSells();
         return view('home')->with([
-            'empOfTheMonth' => $employeeOfTheMonth,
             'sells' => $sells
             ]
         );
