@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\View\View;
 use App\Models\Order;
 use App\Tables\OrdersTable;
+use Illuminate\Support\Facades\Redirect;
 
 
 class OrdersController extends Controller
@@ -37,10 +38,10 @@ class OrdersController extends Controller
         $order->vestiging = Request::input('vestiging');
         $order->verkoper = Request::input('verkoper');
         $order->save();
-        return view('Orders.index');
+        return Redirect::to('orders');
     }
 
-    public function update($id): View
+    public function update($id)
     {   
         $order = Order::find($id);
         $order->koper = Request::input('Koper');
@@ -48,22 +49,20 @@ class OrdersController extends Controller
         $order->vestiging = Request::input('vestiging');
         $order->verkoper = Request::input('verkoper');
         $order->save();
-        return view('Orders.index');
+        return Redirect::to('orders');
     }
 
-    // public function show($id): View
-    // {   
-    //     // dd('show');
-    //     // $order = Order::find($id);
-    //     // return view('Orders.createOrEdit')->with('order', $order);
-    // }
+    public function show($id): View
+    {   
+        $order = Order::find($id);
+        return view('Orders.show')->with('order', $order);
+    }
     
-    public function destroy($id): View
+    public function destroy($id)
     {   
         Order::find($id)->delete();
-        return view('Orders.index');
+        return Redirect::to('orders');
     }
-
-
+    
     
 }
