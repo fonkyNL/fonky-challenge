@@ -21,7 +21,7 @@ class HomeController extends Controller
     {
         $employeeOfTheMonth = $this->getEmployeeOfTheMonth();
         $sells = $this->getSells();
-        // dd($sells);
+
         return view('home')->with([
             'empOfTheMonth' => $employeeOfTheMonth,
             'sells' => $sells
@@ -31,16 +31,20 @@ class HomeController extends Controller
 
     public function showProducts() : View
     {
-        return view('TopSellers.index');
+        $prodcuts = $this->getTopTen('product');
+        return view('TopSellers.index')->with(['products' => $prodcuts]);
     }
 
     public function showEmployees() : View
     {
-        return view('TopEmployees.index');
+        $employees = $this->getTopTen('koper');
+        return view('TopEmployees.index')->with(['employees' => $employees]);
+        // return view('TopEmployees.index');
     }
 
 
 
+///////////////////////////////Collection of Artifacts////////////////////////////
 
     private function getEmployeeOfTheMonth(){
         //Simple query that fetches the most occuring value of column koper in the Orders table
@@ -65,5 +69,22 @@ class HomeController extends Controller
         return $result;
     }
 
+    private function getTopTen($nameOfColumn)
+    {
+        $topTen = Order::select($nameOfColumn, DB::raw('COUNT(*) as total'))
+            ->whereYear('created_at', 2021) // Replace with desired year
+            ->whereMonth('created_at', 1) // Replace with desired month
+            ->groupBy($nameOfColumn)
+            ->orderByDesc('total')
+            ->limit(10)
+            ->get();
+    
+        $result = [];
+        foreach ($topTen as $item) {
+            $result[$item->$nameOfColumn] = $item->total;
+        }
+    
+        return $result;
+    }
     
 }
