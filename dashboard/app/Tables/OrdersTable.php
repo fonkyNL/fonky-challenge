@@ -15,9 +15,12 @@ use Okipa\LaravelTable\Abstracts\AbstractTableConfiguration;
 
 class OrdersTable extends AbstractTableConfiguration
 {
+    public string $productName;
+    public string $employeeName;
+
     protected function table(): Table
     {
-        return Table::make()
+        $table = Table::make()
             ->model(Order::class)
             ->headAction(new CreateHeadAction(route('orders.create')))
             ->rowActions(fn(Order $order) => [
@@ -25,6 +28,16 @@ class OrdersTable extends AbstractTableConfiguration
                 new EditRowAction(route('orders.edit', $order)),
                 new DestroyAction('orders/destroy'.$order)
             ]);
+
+        if(isset($this->productName)){
+            $table->query(fn(Builder $query) => $query->where('product', $this->productName));
+        }
+
+        else if(isset($this->employeeName)){
+            $table->query(fn(Builder $query) => $query->where('koper', $this->employeeName));
+        }
+
+        return $table;
     }
 
     protected function columns(): array
@@ -39,14 +52,20 @@ class OrdersTable extends AbstractTableConfiguration
                 ->sortable(),
             Column::make('product')
                 ->title('product')
+                ->sortable()
                 ->searchable(),
             Column::make('vestiging')
-                ->title('vestiging'),
+                ->title('vestiging')
+                ->sortable()
+                ->searchable(),
             Column::make('verkoper')
-                ->title('verkoper'),
+                ->title('verkoper')
+                ->sortable()
+                ->searchable(),
             Column::make('created_at')
                 ->title('created_at')
                 ->sortable()
+                ->searchable()
         ];
     }
     
