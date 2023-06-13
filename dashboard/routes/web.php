@@ -19,3 +19,6 @@ Route::get('orders/{order}/edit', [OrdersController::class, 'edit'])->name('orde
 Route::get('orders/{order}/update', [OrdersController::class, 'update'])->name('orders.update');
 Route::get('orders/destroy/{order}', [OrdersController::class, 'destroy'])->name('orders.destroy');
 Route::get('orders/{order}', [OrdersController::class, 'show'])->name('orders.show');
+
+Route::get('orders/employee-orders/{employee}',[OrdersController::class, 'showEmployeeOrders'])->name('orders.show-employee-orders');
+Route::get('orders/product-orders/{product}',[OrdersController::class, 'shoeProductOrders'])->name('orders.show-product-orders');

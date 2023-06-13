@@ -63,5 +63,12 @@ class OrdersController extends Controller
         return Redirect::to('orders');
     }
     
+    public function showEmployeeOrders($employee){
+        dd($employee);
+    }
+    
+    public function shoeProductOrders($product){
+        dd($product);
+    }
     
 }
