@@ -19,9 +19,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $employeeOfTheMonth = $this->getEmployeeOfTheMonth();
         $sells = $this->getSells();
-
         return view('home')->with([
             'empOfTheMonth' => $employeeOfTheMonth,
             'sells' => $sells
@@ -45,16 +43,6 @@ class HomeController extends Controller
 
 
 ///////////////////////////////Collection of Artifacts////////////////////////////
-
-    private function getEmployeeOfTheMonth(){
-        //Simple query that fetches the most occuring value of column koper in the Orders table
-        return Order::select('koper')
-        ->whereYear('created_at', '=', 2021) //the month and year values are set for testing. However they should be replaced by now() -1
-        ->whereMonth('created_at', '=', 1)
-        ->groupBy('koper')
-        ->orderByRaw('COUNT(*) DESC')
-        ->value('koper');
-    }
 
     private function getSells(){
         $rowsPerDay = Order::select(DB::raw('DATE(created_at) as day'), DB::raw('COUNT(*) as count'))
