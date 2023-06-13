@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 
 class HomeController extends Controller
@@ -27,6 +28,19 @@ class HomeController extends Controller
             ]
         );
     }
+
+    public function showProducts() : View
+    {
+        return view('TopSellers.index');
+    }
+
+    public function showEmployees() : View
+    {
+        return view('TopEmployees.index');
+    }
+
+
+
 
     private function getEmployeeOfTheMonth(){
         //Simple query that fetches the most occuring value of column koper in the Orders table
