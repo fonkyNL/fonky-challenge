@@ -1,11 +1,6 @@
 @extends('layouts.master')
 
 <div class="container">
-	<nav class="navbar navbar-inverse">
-		<ul class="nav navbar-nav">
-			<li><a class="btn btn-small btn-primary" href="{{ url()->previous() }}">back</a></li>
-		</ul>
-	</nav>
     @if(isset($order))         
         <form action="{{ route('orders.update', ['order' => $order->id]) }}" method="get">
     @else

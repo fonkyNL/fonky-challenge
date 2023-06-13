@@ -7,3 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" />  
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
+
+<nav class="navbar navbar-inverse" style="display: flex; justify-content: center; align-items: flex-start;">
+    <ul class="nav navbar-nav">
+        <li>
+            <a class="btn btn-small btn-primary" href="{{ url()->previous() }}">back</a>
+        </li>
+    </ul>
+</nav>
