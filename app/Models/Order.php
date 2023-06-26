@@ -23,14 +23,13 @@ class Order extends Model
     public function getDonationMetric(
         string $groupBy = self::GROUP_BY,
         string $type = self::TYPE,
+        string $where = "",
         string $order = self::ORDER_DIRECTION,
         string $dateFrom = null,
         string $dateTo = null
     ): Collection
     {
-        $query = $this->select("$groupBy as supplier", DB::raw("$type(donation) as amount"))
-            ->groupBy($groupBy)
-            ->orderBy("amount", $order);
+        $query = $this->select("$groupBy as supplier", DB::raw("$type(donation) as amount"));
 
         if ($dateFrom && $dateTo) {
             $query->whereBetween('date_sold', [$dateFrom, $dateTo]);
@@ -39,6 +38,13 @@ class Order extends Model
         } elseif ($dateTo) {
             $query->where('date_sold', '<=', $dateTo);
         }
+
+        if ($where !== "") {
+            $query->where($groupBy === 'branch' ? 'seller' : 'branch', $where);
+        }
+        
+        $query->groupBy($groupBy)
+            ->orderBy("amount", $order);
 
         return $query->get();
     }

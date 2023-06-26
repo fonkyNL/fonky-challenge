@@ -25,6 +25,14 @@ class OrderController extends Controller
     public function orders(GetOrdersRequest $request): JsonResource
     {
         $data = $request->validated();
-        return DonationSummaryResource::collection($this->order->getDonationMetric($data['supplier'], $data['type']));
+        return DonationSummaryResource::collection(
+            $this->order->getDonationMetric(
+                $data['supplier'],
+                $data['type'],
+                $data['where'] ?? "",
+                $data['dateFrom'] ?? null,
+                $data['dateTo'] ?? null
+            )
+        );
     }
 }
