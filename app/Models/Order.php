@@ -24,9 +24,9 @@ class Order extends Model
         string $groupBy = self::GROUP_BY,
         string $type = self::TYPE,
         string $where = "",
-        string $order = self::ORDER_DIRECTION,
         string $dateFrom = null,
-        string $dateTo = null
+        string $dateTo = null,
+        string $order = self::ORDER_DIRECTION,
     ): Collection
     {
         $query = $this->select("$groupBy as supplier", DB::raw("$type(donation) as amount"));
@@ -42,7 +42,7 @@ class Order extends Model
         if ($where !== "") {
             $query->where($groupBy === 'branch' ? 'seller' : 'branch', $where);
         }
-        
+
         $query->groupBy($groupBy)
             ->orderBy("amount", $order);
 
