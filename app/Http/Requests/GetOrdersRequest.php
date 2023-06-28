@@ -17,8 +17,8 @@ class GetOrdersRequest extends FormRequest
             'supplier' => 'required|string|in:seller,branch',
             'type' => 'required|string|in:SUM,AVG,COUNT',
             'where' => 'sometimes|string',
-            'dateFrom' => 'sometimes|date',
-            'dateTo' => 'sometimes|date|after_or_equal:start_date'
+            'dateFrom' => 'sometimes|string',
+            'dateTo' => 'sometimes|string|after_or_equal:start_date'
         ];
     }
 }

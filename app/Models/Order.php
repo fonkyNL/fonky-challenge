@@ -27,10 +27,33 @@ class Order extends Model
         string $dateFrom = null,
         string $dateTo = null,
         string $order = self::ORDER_DIRECTION,
-    ): Collection
-    {
+    ): Collection {
+        $query = $this->buildQuery($groupBy, $type, $where, $dateFrom, $dateTo, $order);
+
+        return $query->get();
+    }
+
+    protected function buildQuery(
+        string $groupBy,
+        string $type,
+        string $where,
+        ?string $dateFrom,
+        ?string $dateTo,
+        string $order
+    ) {
         $query = $this->select("$groupBy as supplier", DB::raw("$type(donation) as amount"));
 
+        $this->applyDateFilters($query, $dateFrom, $dateTo);
+        $this->applyWhereCondition($query, $groupBy, $where);
+
+        $query->groupBy($groupBy)
+            ->orderBy("amount", $order);
+
+        return $query;
+    }
+
+    protected function applyDateFilters($query, ?string $dateFrom, ?string $dateTo): void
+    {
         if ($dateFrom && $dateTo) {
             $query->whereBetween('date_sold', [$dateFrom, $dateTo]);
         } elseif ($dateFrom) {
@@ -38,14 +61,13 @@ class Order extends Model
         } elseif ($dateTo) {
             $query->where('date_sold', '<=', $dateTo);
         }
+    }
 
+    protected function applyWhereCondition($query, string $groupBy, string $where): void
+    {
         if ($where !== "") {
-            $query->where($groupBy === 'branch' ? 'seller' : 'branch', $where);
+            $field = $groupBy === 'branch' ? 'seller' : 'branch';
+            $query->where($field, $where);
         }
-
-        $query->groupBy($groupBy)
-            ->orderBy("amount", $order);
-
-        return $query->get();
     }
 }

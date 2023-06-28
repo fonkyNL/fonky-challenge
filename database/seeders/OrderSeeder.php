@@ -16,11 +16,30 @@ class OrderSeeder extends Seeder
     public function run(): void
     {
         $ordersFilePath = database_path('orders.csv');
+        $ordersArray = $this->parseOrdersCsv($ordersFilePath);
+
+        if ($ordersArray) {
+            $this->truncateOrdersTable();
+
+            try {
+                Order::insert($ordersArray);
+            } catch (Throwable $e) {
+                $this->logError('Failed to insert orders: ' . $e->getMessage());
+            }
+        }
+    }
+
+    /**
+     * Parse the orders CSV file.
+     *
+     * @param string $filePath
+     * @return array
+     */
+    protected function parseOrdersCsv(string $filePath): array
+    {
         $ordersArray = [];
 
-        Order::truncate();
-
-        if (($orders = fopen($ordersFilePath, 'r')) !== false) {
+        if (($orders = fopen($filePath, 'r')) !== false) {
             $header = fgetcsv($orders); // Read the header row
 
             while (($order = fgetcsv($orders)) !== false) {
@@ -42,15 +61,27 @@ class OrderSeeder extends Seeder
 
             fclose($orders);
         } else {
-            Log::error('Something went wrong while parsing the csv file');
+            $this->logError('Something went wrong while parsing the CSV file');
         }
 
-        if ($ordersArray) {
-            try {
-                Order::insert($ordersArray);
-            } catch (Throwable $e) {
-                Log::error($e->getMessage());
-            }
-        }
+        return $ordersArray;
+    }
+
+    /**
+     * Truncate the orders table.
+     */
+    protected function truncateOrdersTable(): void
+    {
+        Order::truncate();
+    }
+
+    /**
+     * Log an error message.
+     *
+     * @param string $message
+     */
+    protected function logError(string $message): void
+    {
+        Log::error($message);
     }
 }
