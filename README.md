@@ -1,12 +1,12 @@
-#Laravel App with Docker
+# Laravel App with Docker
 This repository contains a Laravel application that can be easily launched using Docker. It provides a simple setup for running your Laravel app in a containerized environment.
 
-#Prerequisites
+# Prerequisites
 Make sure you have the following software installed on your machine:
 
 - Docker
 - Docker Compose
-#Getting Started
+# Getting Started
 Follow the steps below to get the Laravel app up and running:
 
 1. Clone this repository to your local machine: `git clone https://github.com/ToniMijatovic/fonky-challenge`
@@ -14,8 +14,9 @@ Follow the steps below to get the Laravel app up and running:
 3. Build and start the Docker containers: `docker-compose up -d --build`
 4. Obtain the container ID, run the following command: `docker ps`
 5. Access the container shell by running the following command: `docker exec -it <container_id> bash`
-6. Run the database migrations and seed the database: `php artisan migrate --seed`
-7. Open your web browser and visit http://localhost:9101 to see the running Laravel app.
+6. Generate the application key: `php artisan key:generate`
+7. Run the database migrations and seed the database: `php artisan migrate --seed`
+8. Open your web browser and visit http://localhost:9101 to see the running Laravel app.
 
 Note: No changes are required in the .env file for the database credentials.
 
@@ -87,7 +88,7 @@ Example response:
 }
 ```
 
-###Retrieve Order Summaries for Seller
+### Retrieve Order Summaries for Seller
 
 GET /api/v1/orders?supplier=seller&type=SUM
 
@@ -188,7 +189,7 @@ Response:
 }
 ```
 
-###Retrieve Order Summaries for Branch Request:
+### Retrieve Order Summaries for Branch Request:
 
 GET /api/v1/orders?supplier=branch&type=SUM
 
@@ -224,7 +225,7 @@ GET /api/v1/orders?supplier=branch&type=SUM
 
 ```
 
-###Retrieve Average Order Amount for Branches Request
+### Retrieve Average Order Amount for Branches Request
 
 GET /api/v1/orders?supplier=branch&type=AVG
 
@@ -259,7 +260,7 @@ GET /api/v1/orders?supplier=branch&type=AVG
 }
 ```
 
-###Retrieve Average Order Amount for Seller Request
+### Retrieve Average Order Amount for Seller Request
 
 GET /api/v1/orders?supplier=seller&type=AVG
 
@@ -294,7 +295,7 @@ GET /api/v1/orders?supplier=seller&type=AVG
 }
 ```
 
-###Retrieve Order Count for Branch Request:
+### Retrieve Order Count for Branch Request:
 
 GET /api/v1/orders?supplier=branch&type=COUNT
 
@@ -329,7 +330,7 @@ GET /api/v1/orders?supplier=branch&type=COUNT
 }
 ```
 
-###Retrieve Order Count for Sellers Request:
+### Retrieve Order Count for Sellers Request:
 
 GET /api/v1/orders?supplier=seller&type=COUNT
 
@@ -432,7 +433,7 @@ By providing the `dateFrom` or `dateTo` parameters you can filter out the result
 can put the `where` parameter in the url aswel, this will filter out the result sets based on the `supplier` parameter
 and the `where` parameter.
 
-###Error Handling
+### Error Handling
 
 In case of invalid requests or errors, the API will respond with appropriate error messages and status codes.
 
