@@ -1,0 +1,44 @@
+version: '3.8'
+# Docker Networks
+networks:
+    laravel:
+services:
+    app:
+        # If you're using Mac with ARM architecture processor add uncomment the below code
+        #platform: linux/amd64
+        build:
+            context: ./
+        volumes:
+            - ./app:/var/www/html/app
+            - ./.env:/var/www/html/.env
+            - ./public:/var/www/html/public
+            - ./resources:/var/www/html/resources
+            - ./database:/var/www/html/database
+            - ./routes:/var/www/html/routes
+            - ./storage/logs:/var/www/html/storage/logs
+            - ./composer.json:/var/www/html/composer.json
+        ports:
+            - 9101:80
+        networks:
+            - laravel
+    # Database Service
+    mysql:
+        # If you're using Mac with ARM architecture processor add uncomment the below code
+        #platform: linux/x86_64
+        image : mysql
+        container_name : mysql
+        restart: unless-stopped
+        tty: true
+        volumes:
+            - ./mysql/data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: fonky_laravel
+            MYSQL_USER: laravel
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: root
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        networks:
+            - laravel
